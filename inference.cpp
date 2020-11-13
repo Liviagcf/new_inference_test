@@ -23,7 +23,6 @@ struct Result
 };
 
 const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC2020/exported/my_mobilenet3_retrain/saved_model";
-const std::string PATH_TO_INFERENCE_FILES = "mAP/input/detection-results/";
 const std::string IMAGE_PATH = "/home/ubuntu/unbeatables/dataset/LARC2020/augumented/";
 
 template <typename T>
@@ -48,33 +47,6 @@ std::vector<std::vector<T>> SplitVector(const std::vector<T> &vec, size_t n)
 
     return outVec;
 }
-
-// void exclude_similar_boxes(std::vector<std::vector<float>> &boxes, std::vector<float> &condidences){
-//     std::vector<std::vector<float>> chosen_boxes;
-//     std::vector<float> chosen_confidences;
-
-//     while(boxes.size() > 0){
-//         auto max_confidence_index =  std::max_element(condidences.begin(), condifidences.end()) - confidences.begin();
-//         auto best_box = boxes[max_confidence_index];
-//         auto best_confidence = boxes[max_confidence_index];
-
-//         chosen_boxes.push_back(best_box);
-//         chosen_confidences.push_back(best_confidence)
-
-//         std::vector<std::vector<float>>  overlap_left_top = [[0.25296253, 0.84180635], [0.25296253, 0.8604182 ]];
-//         std::vector<std::vector<float>> overlap_right_bottom = [[0.66762656, 1.        ], [0.66762656, 0.9916265 ]];
-
-//         std::vector<float> overlap_area = [0.065597214, 0.054407362];
-//         std::vector<float> area1 = [0.06559721, 0.10150377];
-//         float area2 = 0.06559721;
-
-//         jaccard = overlap_area/(area1 + area2 - overlap_area + 0.0000001);
-//         jaccard1  = overlap_area/area1;
-//         jaccard2 = overlap_area/area2;
-
-//     }
-
-// }
 
 void inference(std::vector<std::string> &image_names, ModelLoader &model)
 {
@@ -133,9 +105,7 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model)
                 cv::rectangle(opencv_img, pt1, pt2, cv::Scalar(0, 0, 255));
             }
         }
-        // fim = steady_clock::now();
-        // duration<double> time_span = duration_cast<duration<double>>(fim - ini);
-        // cout << " - Finalizado em: " << time_span.count() << "s." << endl;
+        
         if (i < 20)
         {
             char delimiter = '/';
@@ -156,7 +126,7 @@ int main(int argc, char **argv)
     steady_clock::time_point ini, fim;
 
     std::cout << "Loading model...";
-    // std::cout << PATH_TO_SAVED_MODEL << std::endl;
+    
     ModelLoader model(PATH_TO_SAVED_MODEL);
     std::cout << "Model loaded...";
 
@@ -168,10 +138,10 @@ int main(int argc, char **argv)
     {
         while ((dir = readdir(d)) != NULL)
         {
-            // std::cout << " : " << (dir->d_name) << std::endl;
+            
             str = dir->d_name;
             str = IMAGE_PATH + str;
-            // std::cout<<str<<std::endl;
+            
             image_path.push_back(str);
         }
         closedir(d);
