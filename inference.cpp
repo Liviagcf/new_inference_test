@@ -27,6 +27,29 @@ const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC20
 const std::string PATH_TO_INFERENCE_FILES = "mAP/input/detection-results/";
 const std::string IMAGE_PATH = "/home/ubuntu/unbeatables/dataset/LARC2020/dataset/";
 
+template<typename T>
+std::vector<std::vector<T>> SplitVector(const std::vector<T>& vec, size_t n)
+{
+    std::vector<std::vector<T>> outVec;
+
+    size_t length = vec.size() / n;
+    size_t remain = vec.size() % n;
+
+    size_t begin = 0;
+    size_t end = 0;
+
+    for (size_t i = 0; i < std::min(n, vec.size()); ++i)
+    {
+        end += (remain > 0) ? (length + !!(remain--)) : length;
+
+        outVec.push_back(std::vector<T>(vec.begin() + begin, vec.begin() + end));
+
+        begin = end;
+    }
+
+    return outVec;
+}
+
 void inference(std::vector<std::string> &image_names, ModelLoader &model)
 {
     
@@ -69,7 +92,7 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model)
             ofstream myfile;
             myfile.open("/home/ubuntu/inference_cpp/" + token + ".txt", ios::app);
             myfile << "robot"
-                   << " " << score << " " << result.ymin << " " << result.xmin << " " << result.ymax << " " << result.xmax << "\n";
+                   << " " << score << " " << result.xmin << " " << result.ymin << " " << result.xmax << " " << result.ymax << "\n";
             myfile.close();
         }
         // fim = steady_clock::now();
@@ -111,16 +134,22 @@ int main(int argc, char **argv)
     image_path.erase(image_path.begin());
     image_path.erase(image_path.begin());
 
-    std::size_t const half_size = image_path.size() / 2;
-    std::vector<std::string> split_lo(image_path.begin(), image_path.begin() + half_size);
-    std::vector<std::string> split_hi(image_path.begin() + half_size, image_path.end());
+    std::vector<std::vector<std::string>> split_vector = SplitVector(image_path, 3);
+
+    std::vector<std::string> split_lo = split_vector[0];
+    std::vector<std::string> split_mid = split_vector[1];
+    std::vector<std::string> split_hi = split_vector[2];
 
     ini = steady_clock::now();
     std::cout << "Tempo de Inicio:" << ini.time_since_epoch().count() << std::endl;
-
+    // std::cout << split_lo.size() << " " << split_mid.size() << " "<< split_hi.size() << " " << std::endl;
+    
     std::thread thread_lo(inference, std::ref(split_lo), std::ref(model));
+    std::thread thread_mid(inference, std::ref(split_mid), std::ref(model)); 
     std::thread thread_hi(inference, std::ref(split_hi), std::ref(model)); 
+    
     thread_lo.join();
+    thread_mid.join();
     thread_hi.join();
 
     fim = steady_clock::now();
