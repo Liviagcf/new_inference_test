@@ -79,28 +79,28 @@ include CMakeFiles/inference.dir/flags.make
 CMakeFiles/inference.dir/inference.cpp.o: CMakeFiles/inference.dir/flags.make
 CMakeFiles/inference.dir/inference.cpp.o: ../inference.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/inference.dir/inference.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/inference.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/inference.cpp
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/inference.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/inference.cpp
 
 CMakeFiles/inference.dir/inference.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/inference.dir/inference.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/inference.cpp > CMakeFiles/inference.dir/inference.cpp.i
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/inference.cpp > CMakeFiles/inference.dir/inference.cpp.i
 
 CMakeFiles/inference.dir/inference.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/inference.dir/inference.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/inference.cpp -o CMakeFiles/inference.dir/inference.cpp.s
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/inference.cpp -o CMakeFiles/inference.dir/inference.cpp.s
 
 CMakeFiles/inference.dir/model_loader.cpp.o: CMakeFiles/inference.dir/flags.make
 CMakeFiles/inference.dir/model_loader.cpp.o: ../model_loader.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/inference.dir/model_loader.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/model_loader.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/model_loader.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp
 
 CMakeFiles/inference.dir/model_loader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/inference.dir/model_loader.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp > CMakeFiles/inference.dir/model_loader.cpp.i
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp > CMakeFiles/inference.dir/model_loader.cpp.i
 
 CMakeFiles/inference.dir/model_loader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/inference.dir/model_loader.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp -o CMakeFiles/inference.dir/model_loader.cpp.s
+	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp -o CMakeFiles/inference.dir/model_loader.cpp.s
 
 # Object files for target inference
 inference_OBJECTS = \
