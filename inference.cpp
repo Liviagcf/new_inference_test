@@ -11,6 +11,7 @@
 #include <arpa/inet.h>
 #include <dirent.h>
 #include <stdio.h>
+#include<thread>
 
 using namespace tensorflow;
 using namespace std::chrono;
@@ -26,9 +27,9 @@ const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC20
 const std::string PATH_TO_INFERENCE_FILES = "mAP/input/detection-results/";
 const std::string IMAGE_PATH = "/home/ubuntu/unbeatables/dataset/LARC2020/dataset/";
 
-void inference(std::vector<std::string> &image_names, ModelLoader &model, std::vector<Result> &output)
+void inference(std::vector<std::string> &image_names, ModelLoader &model)
 {
-    steady_clock::time_point ini, fim;
+    
     Prediction out_pred;
     out_pred.boxes = unique_ptr<vector<vector<float>>>(new vector<vector<float>>());
     out_pred.scores = unique_ptr<vector<float>>(new vector<float>());
@@ -36,19 +37,16 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
     unsigned int width, height;
     Result result;
 
-    ini = steady_clock::now();
     for (int i = 0; i < image_names.size(); ++i)
     // for (int i = 0; i < 2000; ++i)
     {
         cv::Mat opencv_img;
         opencv_img = cv::imread(image_names[i]);
-        // ini = steady_clock::now();
         int width = opencv_img.cols;
         int height = opencv_img.rows;
 
         // std::cout << "w: " << width << "h: " << height << std::endl;
         model.predict(image_names[i], out_pred);
-        // fim = steady_clock::now();
         for (auto &score : (*out_pred.scores))
         {
             if (score < 0.45)
@@ -68,9 +66,8 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
             size_t pos1 = image_names[i].rfind(delimiter)+1;
             size_t pos2 = image_names[i].rfind(delimiter2) - pos1;
             std::string token = image_names[i].substr(pos1, pos2);
-            cout << i << " Image: " << token << endl;
             ofstream myfile;
-            myfile.open("/home/inference_cpp/" + token + ".txt", ios::app);
+            myfile.open("/home/ubuntu/inference_cpp/" + token + ".txt", ios::app);
             myfile << "robot"
                    << " " << score << " " << result.ymin << " " << result.xmin << " " << result.ymax << " " << result.xmax << "\n";
             myfile.close();
@@ -79,9 +76,7 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
         // duration<double> time_span = duration_cast<duration<double>>(fim - ini);
         // cout << " - Finalizado em: " << time_span.count() << "s." << endl;
     }
-    fim = steady_clock::now();
-    duration<double> time_span = duration_cast<duration<double>>(fim - ini);
-    cout << " - Finalizado em: " << time_span.count() << "s." << endl;
+    
 }
 
 int main(int argc, char **argv)
@@ -89,9 +84,10 @@ int main(int argc, char **argv)
 
     std::vector<std::string> image_path;
     std::vector<Result> results;
+    steady_clock::time_point ini, fim;
 
     std::cout << "Loading model...";
-    std::cout << PATH_TO_SAVED_MODEL << std::endl;
+    // std::cout << PATH_TO_SAVED_MODEL << std::endl;
     ModelLoader model(PATH_TO_SAVED_MODEL);
     std::cout << "Model loaded...";
 
@@ -101,23 +97,40 @@ int main(int argc, char **argv)
     std::string str;
     if (d)
     {
-        int count = 0;
         while ((dir = readdir(d)) != NULL)
         {
-            std::cout << count << " : " << (dir->d_name) << std::endl;
+            // std::cout << " : " << (dir->d_name) << std::endl;
             str = dir->d_name;
             str = IMAGE_PATH + str;
             // std::cout<<str<<std::endl;
             image_path.push_back(str);
-            if(count > 4950){
-              break;
-            }
-            count++;
         }
         closedir(d);
     }
 
     image_path.erase(image_path.begin());
     image_path.erase(image_path.begin());
-    inference(image_path, model, results);
+
+    std::size_t const half_size = image_path.size() / 2;
+    std::vector<std::string> split_lo(image_path.begin(), image_path.begin() + half_size);
+    std::vector<std::string> split_hi(image_path.begin() + half_size, image_path.end());
+
+    ini = steady_clock::now();
+    std::cout << "Tempo de Inicio:" << ini.time_since_epoch().count() << std::endl;
+
+    std::thread thread_lo(inference, std::ref(split_lo), std::ref(model));
+    std::thread thread_hi(inference, std::ref(split_hi), std::ref(model)); 
+    thread_lo.join();
+    thread_hi.join();
+
+    fim = steady_clock::now();
+
+    std::cout << "Finalizado no tempo: " << fim.time_since_epoch().count() << std::endl;
+    duration<double> time_span = duration_cast<duration<double>>(fim - ini);
+    cout << " - Finalizado em: " << time_span.count() << "s." << endl;
+
+
+    // inference(image_path, model);
 }
+
+// tempo de inferencia: ~33 ms por img
