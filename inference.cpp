@@ -38,6 +38,7 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
 
     ini = steady_clock::now();
     for (int i = 0; i < image_names.size(); ++i)
+    // for (int i = 0; i < 2000; ++i)
     {
         cv::Mat opencv_img;
         opencv_img = cv::imread(image_names[i]);
@@ -47,7 +48,6 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
 
         // std::cout << "w: " << width << "h: " << height << std::endl;
         model.predict(image_names[i], out_pred);
-
         // fim = steady_clock::now();
         for (auto &score : (*out_pred.scores))
         {
@@ -63,16 +63,17 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model, std::v
             result.ymax = (int)(box[2] * height);
             result.xmax = (int)(box[3] * width);
 
-            std::string delimiter = ".";
-            std::string token = image_names[i].substr(0, image_names[i].find(delimiter));
-            delimiter = "/";
-            token = token.substr(0, token.find(delimiter));
-            std::cout << "Token: " << token << std::endl;
-            // ofstream myfile;
-            // myfile.open("/home/inference_cpp/" + token + ".txt", ios::app);
-            // myfile << "robot"
-            //        << " " << score << " " << result.ymin << " " << result.xmin << " " << result.ymax << " " << result.xmax << "\n";
-            // myfile.close();
+            char delimiter = '/';
+            char delimiter2 = '.';
+            size_t pos1 = image_names[i].rfind(delimiter)+1;
+            size_t pos2 = image_names[i].rfind(delimiter2) - pos1;
+            std::string token = image_names[i].substr(pos1, pos2);
+            cout << i << " Image: " << token << endl;
+            ofstream myfile;
+            myfile.open("/home/inference_cpp/" + token + ".txt", ios::app);
+            myfile << "robot"
+                   << " " << score << " " << result.ymin << " " << result.xmin << " " << result.ymax << " " << result.xmax << "\n";
+            myfile.close();
         }
         // fim = steady_clock::now();
         // duration<double> time_span = duration_cast<duration<double>>(fim - ini);
@@ -100,13 +101,18 @@ int main(int argc, char **argv)
     std::string str;
     if (d)
     {
+        int count = 0;
         while ((dir = readdir(d)) != NULL)
         {
-            std::cout << (dir->d_name) << std::endl;
+            std::cout << count << " : " << (dir->d_name) << std::endl;
             str = dir->d_name;
             str = IMAGE_PATH + str;
             // std::cout<<str<<std::endl;
             image_path.push_back(str);
+            if(count > 4950){
+              break;
+            }
+            count++;
         }
         closedir(d);
     }
