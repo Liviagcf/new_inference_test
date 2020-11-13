@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/ubuntu/unbeatables/new_inference_test/build/inference",
+            "program": "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/inference",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

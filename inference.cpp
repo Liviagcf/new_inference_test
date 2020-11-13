@@ -23,7 +23,7 @@ struct Result
 };
 
 const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC2020/exported/my_mobilenet3_retrain/saved_model";
-const std::string IMAGE_PATH = "/home/ubuntu/unbeatables/dataset/LARC2020/augumented/";
+const std::string IMAGE_PATH = "/home/ubuntu/test_images/";
 
 template <typename T>
 std::vector<std::vector<T>> SplitVector(const std::vector<T> &vec, size_t n)
@@ -62,9 +62,16 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model)
     // for (int i = 0; i < 2000; ++i)
     {
         cv::Mat opencv_img;
+        // std::cout << image_names[i] << std::endl;
         opencv_img = cv::imread(image_names[i]);
         int width = opencv_img.cols;
         int height = opencv_img.rows;
+        
+        ofstream file;
+        file.open("/home/ubuntu/detection-results/" + token + ".txt", ios::app);
+        file.close();
+
+        // std::cout << image_names[i] << std::endl;
 
         // std::cout << "w: " << width << "h: " << height << std::endl;
         model.predict(image_names[i], out_pred);
@@ -105,7 +112,7 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model)
                 cv::rectangle(opencv_img, pt1, pt2, cv::Scalar(0, 0, 255));
             }
         }
-        
+
         if (i < 20)
         {
             char delimiter = '/';
@@ -126,29 +133,28 @@ int main(int argc, char **argv)
     steady_clock::time_point ini, fim;
 
     std::cout << "Loading model...";
-    
+
     ModelLoader model(PATH_TO_SAVED_MODEL);
     std::cout << "Model loaded...";
 
     DIR *d;
     struct dirent *dir;
-    d = opendir("/home/ubuntu/unbeatables/dataset/LARC2020/augumented/");
+    d = opendir("/home/ubuntu/test_images/");
     std::string str;
     if (d)
     {
         while ((dir = readdir(d)) != NULL)
         {
-            
             str = dir->d_name;
             str = IMAGE_PATH + str;
-            
-            image_path.push_back(str);
+            // std::cout << str << std::endl;
+            if (str.compare("/home/ubuntu/test_images/.") != 0 && str.compare("/home/ubuntu/test_images/..") != 0)
+            {
+                image_path.push_back(str);
+            }
         }
         closedir(d);
     }
-
-    image_path.erase(image_path.begin());
-    image_path.erase(image_path.begin());
 
     std::vector<std::vector<std::string>> split_vector = SplitVector(image_path, 3);
 
