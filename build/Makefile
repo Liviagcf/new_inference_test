@@ -67,10 +67,10 @@ RM = /usr/local/lib/python3.6/dist-packages/cmake/data/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/unbeatables/new_inference_test
+CMAKE_SOURCE_DIR = /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/unbeatables/new_inference_test/build
+CMAKE_BINARY_DIR = /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -99,9 +99,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles /home/ubuntu/unbeatables/new_inference_test/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

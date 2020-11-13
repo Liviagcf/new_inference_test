@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/ubuntu/unbeatables/new_inference_test/inference.cpp
+/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/inference.cpp
 opencv2/opencv.hpp
 -
 chrono
@@ -22,7 +22,7 @@ fstream
 unordered_set
 -
 model_loader.hpp
-/home/ubuntu/unbeatables/new_inference_test/model_loader.hpp
+/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.hpp
 iostream
 -
 arpa/inet.h
@@ -31,12 +31,14 @@ dirent.h
 -
 stdio.h
 -
+thread
+-
 
-/home/ubuntu/unbeatables/new_inference_test/model_loader.hpp
+/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.hpp
 tensorflow/cc/saved_model/loader.h
-/home/ubuntu/unbeatables/new_inference_test/tensorflow/cc/saved_model/loader.h
+/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/tensorflow/cc/saved_model/loader.h
 tensorflow/core/framework/tensor.h
-/home/ubuntu/unbeatables/new_inference_test/tensorflow/core/framework/tensor.h
+/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/tensorflow/core/framework/tensor.h
 
 /usr/local/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

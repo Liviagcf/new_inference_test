@@ -10,7 +10,7 @@
 #include <arpa/inet.h>
 #include <dirent.h>
 #include <stdio.h>
-#include<thread>
+#include <thread>
 
 using namespace tensorflow;
 using namespace std::chrono;
@@ -22,12 +22,12 @@ struct Result
     int xmin, ymin, xmax, ymax;
 };
 
-const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC2020/exported/my_mobilenet_best/saved_model";
+const std::string PATH_TO_SAVED_MODEL = "/home/ubuntu/unbeatables/dataset/LARC2020/exported/my_mobilenet3_retrain/saved_model";
 const std::string PATH_TO_INFERENCE_FILES = "mAP/input/detection-results/";
 const std::string IMAGE_PATH = "/home/ubuntu/unbeatables/dataset/LARC2020/augumented/";
 
-template<typename T>
-std::vector<std::vector<T>> SplitVector(const std::vector<T>& vec, size_t n)
+template <typename T>
+std::vector<std::vector<T>> SplitVector(const std::vector<T> &vec, size_t n)
 {
     std::vector<std::vector<T>> outVec;
 
@@ -49,7 +49,6 @@ std::vector<std::vector<T>> SplitVector(const std::vector<T>& vec, size_t n)
     return outVec;
 }
 
-
 // void exclude_similar_boxes(std::vector<std::vector<float>> &boxes, std::vector<float> &condidences){
 //     std::vector<std::vector<float>> chosen_boxes;
 //     std::vector<float> chosen_confidences;
@@ -64,7 +63,7 @@ std::vector<std::vector<T>> SplitVector(const std::vector<T>& vec, size_t n)
 
 //         std::vector<std::vector<float>>  overlap_left_top = [[0.25296253, 0.84180635], [0.25296253, 0.8604182 ]];
 //         std::vector<std::vector<float>> overlap_right_bottom = [[0.66762656, 1.        ], [0.66762656, 0.9916265 ]];
-        
+
 //         std::vector<float> overlap_area = [0.065597214, 0.054407362];
 //         std::vector<float> area1 = [0.06559721, 0.10150377];
 //         float area2 = 0.06559721;
@@ -79,7 +78,7 @@ std::vector<std::vector<T>> SplitVector(const std::vector<T>& vec, size_t n)
 
 void inference(std::vector<std::string> &image_names, ModelLoader &model)
 {
-    
+
     Prediction out_pred;
     out_pred.boxes = unique_ptr<vector<vector<float>>>(new vector<vector<float>>());
     out_pred.scores = unique_ptr<vector<float>>(new vector<float>());
@@ -113,20 +112,40 @@ void inference(std::vector<std::string> &image_names, ModelLoader &model)
 
             char delimiter = '/';
             char delimiter2 = '.';
-            size_t pos1 = image_names[i].rfind(delimiter)+1;
+            size_t pos1 = image_names[i].rfind(delimiter) + 1;
             size_t pos2 = image_names[i].rfind(delimiter2) - pos1;
             std::string token = image_names[i].substr(pos1, pos2);
             ofstream myfile;
+
             myfile.open("/home/ubuntu/inference_cpp/" + token + ".txt", ios::app);
             myfile << "robot"
                    << " " << score << " " << result.xmin << " " << result.ymin << " " << result.xmax << " " << result.ymax << "\n";
             myfile.close();
+
+            if (i < 20)
+            {
+                //escreve box nas primeiras 20 imgs
+                // and its top left corner...
+                cv::Point pt1(result.xmin, result.ymin);
+                // and its bottom right corner.
+                cv::Point pt2(result.xmax, result.ymax);
+                // These two calls...
+                cv::rectangle(opencv_img, pt1, pt2, cv::Scalar(0, 0, 255));
+            }
         }
         // fim = steady_clock::now();
         // duration<double> time_span = duration_cast<duration<double>>(fim - ini);
         // cout << " - Finalizado em: " << time_span.count() << "s." << endl;
+        if (i < 20)
+        {
+            char delimiter = '/';
+            char delimiter2 = '.';
+            size_t pos1 = image_names[i].rfind(delimiter) + 1;
+            size_t pos2 = image_names[i].rfind(delimiter2) - pos1;
+            std::string token = image_names[i].substr(pos1, pos2);
+            cv::imwrite("/home/ubuntu/inference_cpp_imgs/" + token + ".png", opencv_img);
+        }
     }
-    
 }
 
 int main(int argc, char **argv)
@@ -170,11 +189,11 @@ int main(int argc, char **argv)
     ini = steady_clock::now();
     std::cout << "Tempo de Inicio:" << ini.time_since_epoch().count() << std::endl;
     // std::cout << split_lo.size() << " " << split_mid.size() << " "<< split_hi.size() << " " << std::endl;
-    
+
     std::thread thread_lo(inference, std::ref(split_lo), std::ref(model));
-    std::thread thread_mid(inference, std::ref(split_mid), std::ref(model)); 
-    std::thread thread_hi(inference, std::ref(split_hi), std::ref(model)); 
-    
+    std::thread thread_mid(inference, std::ref(split_mid), std::ref(model));
+    std::thread thread_hi(inference, std::ref(split_hi), std::ref(model));
+
     thread_lo.join();
     thread_mid.join();
     thread_hi.join();
@@ -184,9 +203,6 @@ int main(int argc, char **argv)
     std::cout << "Finalizado no tempo: " << fim.time_since_epoch().count() << std::endl;
     duration<double> time_span = duration_cast<duration<double>>(fim - ini);
     cout << " - Finalizado em: " << time_span.count() << "s." << endl;
-
-
-    // inference(image_path, model);
 }
 
-// tempo de inferencia: ~33 ms por img
+// tempo de inferencia: ~17 ms por img

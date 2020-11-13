@@ -4,8 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ubuntu/unbeatables/new_inference_test/inference.cpp" "/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles/inference.dir/inference.cpp.o"
-  "/home/ubuntu/unbeatables/new_inference_test/model_loader.cpp" "/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles/inference.dir/model_loader.cpp.o"
+  "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/inference.cpp" "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles/inference.dir/inference.cpp.o"
+  "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.cpp" "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles/inference.dir/model_loader.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

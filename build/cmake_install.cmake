@@ -1,4 +1,4 @@
-# Install script for directory: /home/ubuntu/unbeatables/new_inference_test
+# Install script for directory: /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ubuntu/unbeatables/new_inference_test/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

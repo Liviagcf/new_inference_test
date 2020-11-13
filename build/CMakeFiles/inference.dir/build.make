@@ -62,10 +62,10 @@ RM = /usr/local/lib/python3.6/dist-packages/cmake/data/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/unbeatables/new_inference_test
+CMAKE_SOURCE_DIR = /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/unbeatables/new_inference_test/build
+CMAKE_BINARY_DIR = /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/inference.dir/depend.make
@@ -78,29 +78,29 @@ include CMakeFiles/inference.dir/flags.make
 
 CMakeFiles/inference.dir/inference.cpp.o: CMakeFiles/inference.dir/flags.make
 CMakeFiles/inference.dir/inference.cpp.o: ../inference.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/inference.dir/inference.cpp.o"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/inference.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/inference.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/inference.dir/inference.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/inference.cpp.o -c /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/inference.cpp
 
 CMakeFiles/inference.dir/inference.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/inference.dir/inference.cpp.i"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/inference.cpp > CMakeFiles/inference.dir/inference.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/inference.cpp > CMakeFiles/inference.dir/inference.cpp.i
 
 CMakeFiles/inference.dir/inference.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/inference.dir/inference.cpp.s"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/inference.cpp -o CMakeFiles/inference.dir/inference.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/inference.cpp -o CMakeFiles/inference.dir/inference.cpp.s
 
 CMakeFiles/inference.dir/model_loader.cpp.o: CMakeFiles/inference.dir/flags.make
 CMakeFiles/inference.dir/model_loader.cpp.o: ../model_loader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/inference.dir/model_loader.cpp.o"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/model_loader.cpp.o -c /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/inference.dir/model_loader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/inference.dir/model_loader.cpp.o -c /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.cpp
 
 CMakeFiles/inference.dir/model_loader.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/inference.dir/model_loader.cpp.i"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp > CMakeFiles/inference.dir/model_loader.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.cpp > CMakeFiles/inference.dir/model_loader.cpp.i
 
 CMakeFiles/inference.dir/model_loader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/inference.dir/model_loader.cpp.s"
-	/usr/bin/g++-8 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/new_inference_test/model_loader.cpp -o CMakeFiles/inference.dir/model_loader.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/model_loader.cpp -o CMakeFiles/inference.dir/model_loader.cpp.s
 
 # Object files for target inference
 inference_OBJECTS = \
@@ -131,7 +131,7 @@ inference: /usr/local/lib/libopencv_flann.so.4.2.0
 inference: /usr/local/lib/libopencv_imgproc.so.4.2.0
 inference: /usr/local/lib/libopencv_core.so.4.2.0
 inference: CMakeFiles/inference.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable inference"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable inference"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/inference.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -144,6 +144,6 @@ CMakeFiles/inference.dir/clean:
 .PHONY : CMakeFiles/inference.dir/clean
 
 CMakeFiles/inference.dir/depend:
-	cd /home/ubuntu/unbeatables/new_inference_test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/unbeatables/new_inference_test /home/ubuntu/unbeatables/new_inference_test /home/ubuntu/unbeatables/new_inference_test/build /home/ubuntu/unbeatables/new_inference_test/build /home/ubuntu/unbeatables/new_inference_test/build/CMakeFiles/inference.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build /home/ubuntu/unbeatables/paulo_inference_test/new_inference_test/build/CMakeFiles/inference.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/inference.dir/depend
 
